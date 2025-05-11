@@ -88,13 +88,24 @@ export function VocabularyListItemCard({ item, index, onLongPress }: VocabularyL
         <span className="absolute top-1.5 left-1.5 text-xs text-secondary-foreground opacity-70">
           {index + 1}
         </span>
-        <p 
+        <p
+          className="text-center text-secondary-foreground"
+          lang="ja"
+          style={{
+            fontSize: item.japanese.length > 3 ? (item.japanese.length > 5 ? '1.5rem' : '1.8rem') : '2.25rem',
+            fontWeight: 'bold',
+            lineHeight: '1.2' // Improves readability for wrapped text
+          }}
+        >
+          {item.japanese}
+        </p>
+{/*         <p 
           className="text-center text-secondary-foreground whitespace-nowrap" 
           lang="ja"
           style={{ fontSize: item.japanese.length > 3 ? (item.japanese.length > 5 ? '1.5rem' : '1.8rem') : '2.25rem', fontWeight: 'bold' }}
         >
           {item.japanese}
-        </p>
+        </p> */}
       </div>
       {/* Right Side - Details */}
       <div className="flex-grow p-3 sm:p-4 flex flex-col justify-center space-y-1">

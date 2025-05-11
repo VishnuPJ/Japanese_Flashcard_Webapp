@@ -39,7 +39,7 @@ export function AppHeader() {
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center">
           <KaizenLogo />
-          <h1 className="text-2xl font-bold text-foreground">Nihongo Master</h1>
+          <h1 className="text-2xl font-bold text-foreground">KAIZEN (Nihongo Vocabulary Flashcard App)</h1>
         </div>
         <ThemeToggle />
       </div>

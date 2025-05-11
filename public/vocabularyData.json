@@ -1,6 +1,5 @@
-import type { VocabularyItem } from '@/lib/types';
+[
 
-export const vocabularyN5: VocabularyItem[] = [
   {
     "id": "1",
     "japanese": "会う",
@@ -5352,10 +5351,7 @@ export const vocabularyN5: VocabularyItem[] = [
     "meaning": "Used for comparison.",
     "level": "N5",
     "romaji": "Yori, hou"
-  }
-];
-
-export const vocabularyN4: VocabularyItem[] = [
+  },
   {
     "id": "670",
     "japanese": "あ",
@@ -10411,10 +10407,7 @@ export const vocabularyN4: VocabularyItem[] = [
     "meaning": "way of swimming",
     "level": "N4",
     "romaji": "Oyogikata"
-  }
-]; //....N4
-
-export const vocabularyN3: VocabularyItem[] = [
+  },
   {
     "id": "1304",
     "japanese": "あっ",
@@ -25038,10 +25031,7 @@ export const vocabularyN3: VocabularyItem[] = [
     "meaning": "bay,gulf,inlet",
     "level": "N3",
     "romaji": "Wan"
-  }
-];//....N3
-
-export const vocabularyN2: VocabularyItem[] = [
+  },
   {
     "id": "3139",
     "japanese": "あいかわらず",
@@ -39705,10 +39695,7 @@ export const vocabularyN2: VocabularyItem[] = [
     "meaning": "one-piece dress",
     "level": "N2",
     "romaji": "Wan piisu"
-  }
-];//...N2
-
-export const vocabularyN1: VocabularyItem[] = [
+  },
   {
     "id": "4974",
     "japanese": "嗚呼",
@@ -67485,6 +67472,5 @@ export const vocabularyN1: VocabularyItem[] = [
     "level": "N1",
     "romaji": "Watto"
   }
-];//...N1
 
-export const vocabularyData: VocabularyItem[] = [...vocabularyN5, ...vocabularyN4,...vocabularyN3,...vocabularyN2,...vocabularyN1];
+]
