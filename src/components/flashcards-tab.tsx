@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -7,7 +6,7 @@ import { vocabularyData } from '@/lib/vocabulary';
 import { LevelSelector } from '@/components/level-selector';
 import { Flashcard } from '@/components/flashcard';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, ChevronRight, Shuffle } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Shuffle, ChevronDown, ChevronUp } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
@@ -30,6 +29,7 @@ export function FlashcardsTab() {
   const [baseVocabForLevel, setBaseVocabForLevel] = React.useState<VocabularyItem[]>([]);
   const [displayedVocab, setDisplayedVocab] = React.useState<VocabularyItem[]>([]);
   const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [isSettingsExpanded, setIsSettingsExpanded] = React.useState(true);
   
   // Effect 1: Handle external navigation via targetFlashcardItem by setting the selectedLevel.
   React.useEffect(() => {
@@ -176,48 +176,61 @@ export function FlashcardsTab() {
     itemIndexInLevelForDisplay = listForLevel.findIndex(v => v.id === currentItem.id);
   }
 
-
   return (
     <div className="space-y-6">
       <Card className="shadow-lg border bg-card">
-        <CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-xl font-semibold text-card-foreground">Flashcard Settings</CardTitle>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setIsSettingsExpanded(!isSettingsExpanded)}
+            aria-label={isSettingsExpanded ? "Collapse settings" : "Expand settings"}
+          >
+            {isSettingsExpanded ? (
+              <ChevronUp className="h-4 w-4" />
+            ) : (
+              <ChevronDown className="h-4 w-4" />
+            )}
+          </Button>
         </CardHeader>
-        <CardContent className="p-4 sm:p-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 items-end gap-4 md:gap-6">
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="level-selector" className="text-sm font-medium text-foreground shrink-0">JLPT Level</Label>
-              <LevelSelector 
-                selectedLevel={selectedLevel} 
-                onLevelChange={(level) => {
-                  if (targetFlashcardItem) setTargetFlashcardItem(null); 
-                  setSelectedLevel(level);
-                }} 
-              />
+        {isSettingsExpanded && (
+          <CardContent className="p-4 sm:p-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 items-end gap-4 md:gap-6">
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="level-selector" className="text-sm font-medium text-foreground shrink-0">JLPT Level</Label>
+                <LevelSelector 
+                  selectedLevel={selectedLevel} 
+                  onLevelChange={(level) => {
+                    if (targetFlashcardItem) setTargetFlashcardItem(null); 
+                    setSelectedLevel(level);
+                  }} 
+                />
+              </div>
+              <div className="flex items-center space-x-2">
+                <Switch id="show-romaji" checked={showRomaji} onCheckedChange={setShowRomaji} aria-label="Toggle Romaji visibility" />
+                <Label htmlFor="show-romaji" className="cursor-pointer select-none text-sm font-normal text-foreground">Show Romaji</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Switch id="show-meaning" checked={showMeaning} onCheckedChange={setShowMeaning} aria-label="Toggle Meaning visibility" />
+                <Label htmlFor="show-meaning" className="cursor-pointer select-none text-sm font-normal text-foreground">Show Meaning</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Toggle
+                  id="auto-shuffle"
+                  pressed={isAutoShuffleEnabled}
+                  onPressedChange={handleShuffleToggle}
+                  aria-label="Toggle auto shuffle"
+                  variant="outline"
+                  className="data-[state=on]:bg-accent data-[state=on]:text-accent-foreground shadow-sm"
+                >
+                  <Shuffle className="h-4 w-4 mr-2" />
+                  Shuffle
+                </Toggle>
+              </div>
             </div>
-            <div className="flex items-center space-x-2">
-              <Switch id="show-romaji" checked={showRomaji} onCheckedChange={setShowRomaji} aria-label="Toggle Romaji visibility" />
-              <Label htmlFor="show-romaji" className="cursor-pointer select-none text-sm font-normal text-foreground">Show Romaji</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Switch id="show-meaning" checked={showMeaning} onCheckedChange={setShowMeaning} aria-label="Toggle Meaning visibility" />
-              <Label htmlFor="show-meaning" className="cursor-pointer select-none text-sm font-normal text-foreground">Show Meaning</Label>
-            </div>
-             <div className="flex items-center space-x-2">
-              <Toggle
-                id="auto-shuffle"
-                pressed={isAutoShuffleEnabled}
-                onPressedChange={handleShuffleToggle}
-                aria-label="Toggle auto shuffle"
-                variant="outline"
-                className="data-[state=on]:bg-accent data-[state=on]:text-accent-foreground shadow-sm"
-              >
-                <Shuffle className="h-4 w-4 mr-2" />
-                Shuffle
-              </Toggle>
-            </div>
-          </div>
-        </CardContent>
+          </CardContent>
+        )}
       </Card>
       
       {currentItem ? (
@@ -274,4 +287,3 @@ export function FlashcardsTab() {
     </div>
   );
 }
-
